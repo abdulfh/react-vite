@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import api from '../../api';
+import authHeader from "../../services/auth-header";
 
 
 export default function CarsCreate() {
@@ -33,7 +34,7 @@ export default function CarsCreate() {
         formData.append('dayRate', dayRate);
         formData.append('monthRate', monthRate);
 
-        await api.post('cars/store', formData).then(() => {
+        await api.post('cars/store', formData, {headers: authHeader()}).then(() => {
             navigate('/cars')
         }).catch(error => {
             setErrors(error.response.data)

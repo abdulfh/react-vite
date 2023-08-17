@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useNavigate,useParams } from "react-router-dom"
 import api from '../../api';
+import authHeader from "../../services/auth-header";
 
 
 export default function OrdersCreate() {
@@ -25,7 +26,7 @@ export default function OrdersCreate() {
      async function fetchDetailPost() {
  
          //fetch data
-         await api.get(`/orders/${id}`)
+         await api.get(`/orders/${id}`, {headers: authHeader()})
              .then(response => {
                  const responseData = response.data
                  //assign to state
@@ -56,10 +57,9 @@ export default function OrdersCreate() {
         formData.append('pickUpTime', pickUpTime);
         formData.append('carId', carId);
         
-        await api.put(`orders/${id}/update`, formData).then(() => {
+        await api.put(`orders/${id}/update`, formData, {headers: authHeader()}).then(() => {
             navigate('/orders')
         }).catch(error => {
-            console.log(error);
             setErrors(error.response.data)
         })
     }

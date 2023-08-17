@@ -2,13 +2,15 @@ import { useState, useEffect } from "react"
 
 import api from "../../api"
 
+import authHeader from '../../services/auth-header';
+
 import { Link } from 'react-router-dom';
 
 export default function OrdersIndex() {
     const [orders, setOrderState] = useState([])
 
     async function fetchOrders() {
-        await api.get('orders/list').then(response => {
+        await api.get('orders/list', {headers:authHeader()}).then(response => {
             setOrderState(response.data.orders)
         })
     }
@@ -18,7 +20,7 @@ export default function OrdersIndex() {
     }, [])
 
     async function deleteOrders(id) {
-        await api.delete(`orders/${id}/delete`).then(() => {
+        await api.delete(`orders/${id}/delete`, {headers: authHeader()}).then(() => {
             fetchOrders();
         })
     }

@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 
 
-import Home from '../views/home.jsx';
+import Auth from '../views/auth.jsx';
 
 //import view cars index
 import CarsIndex from '../views/cars/index.jsx';
@@ -27,7 +27,7 @@ export default function RoutesIndex() {
         <Routes>
 
             {/* route "/" */}
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Auth />} />
 
             {/* route "/cars" */}
             <Route path="/cars" element={<CarsIndex />} />

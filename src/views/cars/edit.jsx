@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from '../../api';
+import authHeader from '../../services/auth-header';
 
 
 export default function CarsEdit() {
@@ -27,7 +28,7 @@ export default function CarsEdit() {
     async function fetchDetailPost() {
 
         //fetch data
-        await api.get(`/cars/${id}`)
+        await api.get(`/cars/${id}`, {headers: authHeader()})
             .then(response => {
                 const responseData = response.data
                 //assign to state
@@ -62,7 +63,7 @@ export default function CarsEdit() {
         formData.append('dayRate', dayRate);
         formData.append('monthRate', monthRate);
 
-        await api.put(`cars/${id}/update`, formData).then(() => {
+        await api.put(`cars/${id}/update`, formData, {headers:authHeader()}).then(() => {
             navigate('/cars')
         }).catch(error => {
             setErrors(error.response.data)

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 //import api
 import api from '../../api';
 
+import authHeader from '../../services/auth-header';
+
 //import Link
 import { Link } from 'react-router-dom';
 
@@ -11,7 +13,8 @@ export default function CarsIndex() {
     const [cars, setCarState] = useState([])
 
     async function fetchCars() {
-        await api.get('cars/list').then(response => {
+
+        await api.get('cars/list', {headers: authHeader()}).then(response => {
             setCarState(response.data.cars)
         })
     }
@@ -21,7 +24,7 @@ export default function CarsIndex() {
     }, [])
 
     async function deleteCar(id) {
-        await api.delete(`cars/${id}/delete`).then(() => {
+        await api.delete(`cars/${id}/delete`, {headers: authHeader()}).then(() => {
             fetchCars();
         })
     }
