@@ -18,8 +18,8 @@ export default function OrdersIndex() {
     }, [])
 
     async function deleteOrders(id) {
-        await api.delete(`cars/${id}/delete`).then(() => {
-            deleteOrders();
+        await api.delete(`orders/${id}/delete`).then(() => {
+            fetchOrders();
         })
     }
 
