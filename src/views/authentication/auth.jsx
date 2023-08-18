@@ -1,11 +1,15 @@
 import { useState } from "react"
 // import { useNavigate } from "react-router-dom"
 import api from '../../api';
+import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [errors, setErrors] = useState([]);
+
+    //useNavigate
+    const navigate = useNavigate();
 
     async function login(e) {
         e.preventDefault();
@@ -15,7 +19,8 @@ export default function Auth() {
         formData.append('password', password);
         
         await api.post('auth/login', formData).then(response => { 
-            localStorage.setItem("user", JSON.stringify(response.data));
+            localStorage.setItem("user", response.data.access);
+            navigate('/orders')
         }).catch(error => {
             setErrors(error.response.data)
         })
