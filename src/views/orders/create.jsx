@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import api from '../../api';
 import authHeader from "../../services/auth-header";
@@ -29,13 +29,26 @@ export default function OrdersCreate() {
         formData.append('dropOffDate', dropOffDate);
         formData.append('pickUpTime', pickUpTime);
         formData.append('carId', carId);
-        
-        await api.post('orders/store', formData, {headers: authHeader()}).then(() => {
+
+        await api.post('orders/store', formData, { headers: authHeader() }).then(() => {
             navigate('/orders')
         }).catch(error => {
             setErrors(error.response.data)
         })
     }
+
+    const [cars, setCarState] = useState([])
+
+    async function fetchCars() {
+
+        await api.get('cars/list', {headers: authHeader()}).then(response => {
+            setCarState(response.data.cars)
+        })
+    }
+
+    useEffect(() => {
+        fetchCars();
+    }, [])
 
 
 
@@ -46,40 +59,47 @@ export default function OrdersCreate() {
                     <div className="card border-0 rounded shadow">
                         <div className="card-body">
                             <form onSubmit={storePost}>
-                            
+
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Pick Up Location</label>
-                                    <input type="text" className="form-control" onChange={(e) => setPickUpLoc(e.target.value)} placeholder="Pick Up Location"/>
+                                    <input type="text" className="form-control" onChange={(e) => setPickUpLoc(e.target.value)} placeholder="Pick Up Location" />
                                     {errors.pickUpLoc && (<div className="alert alert-danger mt-2">{errors.pickUpLoc[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Drop Off Location</label>
-                                    <input type="text" className="form-control" onChange={(e) => setDropOffLoc(e.target.value)} placeholder="Drop Off Location"/>
+                                    <input type="text" className="form-control" onChange={(e) => setDropOffLoc(e.target.value)} placeholder="Drop Off Location" />
                                     {errors.dropOffLoc && (<div className="alert alert-danger mt-2">{errors.dropOffLoc[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Pick Up Date</label>
-                                    <input type="date" className="form-control" onChange={(e) => setPickupDate(e.target.value)} placeholder="Pickup Date"/>
+                                    <input type="date" className="form-control" onChange={(e) => setPickupDate(e.target.value)} placeholder="Pickup Date" />
                                     {errors.pickUpDate && (<div className="alert alert-danger mt-2">{errors.pickUpDate[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Drop Off Date</label>
-                                    <input type="date" min={0} className="form-control" onChange={(e) => setDropOffDate(e.target.value)} placeholder="Drop Off Date"/>
+                                    <input type="date" min={0} className="form-control" onChange={(e) => setDropOffDate(e.target.value)} placeholder="Drop Off Date" />
                                     {errors.dropOffDate && (<div className="alert alert-danger mt-2">{errors.dropOffDate[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Pick Up Time</label>
-                                    <input type="time" className="form-control" onChange={(e) => setPickUpTime(e.target.value)} placeholder="Pickup Time"/>
+                                    <input type="time" className="form-control" onChange={(e) => setPickUpTime(e.target.value)} placeholder="Pickup Time" />
                                     {errors.pickUpTime && (<div className="alert alert-danger mt-2">{errors.pickUpTime[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Cars</label>
-                                    <input type="number" min={0} className="form-control" onChange={(e) => setCarId(e.target.value)} placeholder="Cars"/>
+                                    <select className="form-select" onChange={(e) => setCarId(e.target.value) } aria-label="Cars">
+                                        <option value="">Select Car</option>
+                                        {cars.map((option) => {
+                                           return (
+                                                <option value={option.id} key={option.id}>{option.name}</option>
+                                           )
+                                        })}
+                                    </select>
                                     {errors.carId && (<div className="alert alert-danger mt-2">{errors.carId[0]}</div>)}
                                 </div>
 

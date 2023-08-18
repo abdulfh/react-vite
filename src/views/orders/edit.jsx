@@ -40,10 +40,7 @@ export default function OrdersCreate() {
      }
  
      useEffect(() => {
- 
-         //call method "fetchDetailPost"
-         fetchDetailPost();
- 
+          fetchDetailPost();
      }, []);
 
     async function storePost(e) {
@@ -64,6 +61,18 @@ export default function OrdersCreate() {
         })
     }
 
+    const [cars, setCarState] = useState([])
+
+    async function fetchCars() {
+
+        await api.get('cars/list', {headers: authHeader()}).then(response => {
+            setCarState(response.data.cars)
+        })
+    }
+
+    useEffect(() => {
+        fetchCars();
+    }, [])
 
 
     return (
@@ -106,7 +115,14 @@ export default function OrdersCreate() {
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Cars</label>
-                                    <input type="number" min={0} className="form-control" onChange={(e) => setCarId(e.target.value)} placeholder="Cars"/>
+                                    <select className="form-select" value={carId} onChange={(e) => setCarId(e.target.value) } aria-label="Cars">
+                                        <option value="">Select Car</option>
+                                        {cars.map((option) => {
+                                           return (
+                                                <option value={option.id} key={option.id}>{option.name}</option>
+                                           )
+                                        })}
+                                    </select>
                                     {errors.carId && (<div className="alert alert-danger mt-2">{errors.carId[0]}</div>)}
                                 </div>
 

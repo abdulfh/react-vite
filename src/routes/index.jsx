@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 
 
-import Auth from '../views/auth.jsx';
+import Auth from '../views/authentication/auth.jsx';
 
 //import view cars index
 import CarsIndex from '../views/cars/index.jsx';
