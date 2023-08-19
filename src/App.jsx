@@ -1,5 +1,5 @@
 //import Link from react router dom
-import Routes from './routes';
+import RoutesIndex from './routes/RouteIndex';
 import Navbar from './views/utility/Navbar';
 import AuthProvider from './context/AuthContext'
 
@@ -8,7 +8,7 @@ function App() {
     <>
       <AuthProvider> 
         <Navbar />
-        <Routes />
+        <RoutesIndex />
       </AuthProvider>
     </>
   )

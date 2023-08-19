@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import reactLogo from '../../assets/react.svg'
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthData } from '../../context/AuthContext';
 import { nav } from '../../routes/navigation';
 
@@ -24,10 +25,14 @@ export default function Navbar() {
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
           {
             nav.map((route, index) => {
-              if (user && route.isPrivate && route.isMenu && (route.isAdmin || route.isUser) && user.is_admin) {
+              if (!user && !route.isPrivate) {
+                return <MenuItem key={index} path={route.path} name={route.name}></MenuItem> 
+              }else if (user && route.isPrivate && route.isMenu && (route.isAdmin || route.isUser) && user.is_admin) {
                  return <MenuItem key={index} path={route.path} name={route.name}> </MenuItem> 
               } else if (user && route.isPrivate && route.isMenu && route.isUser && !user.is_admin) {
                  return <MenuItem key={index} path={route.path} name={route.name}> </MenuItem> 
+              } else {
+                return false
               }
             })
           }

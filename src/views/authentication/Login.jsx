@@ -3,7 +3,7 @@ import { useState } from "react"
 import api from '../../api';
 import { useNavigate } from "react-router-dom";
 
-export default function Auth() {
+export default function Login() {
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [errors, setErrors] = useState([]);
