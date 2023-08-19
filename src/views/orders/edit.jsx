@@ -35,7 +35,7 @@ export default function OrdersCreate() {
                  setPickupDate(responseData.pickUpDate)
                  setDropOffDate(responseData.dropOffDate)
                  setPickUpTime(responseData.pickUpTime)
-                 setCarId(responseData.carId)
+                 setCarId(responseData.carId.id)
              })
      }
  

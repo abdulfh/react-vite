@@ -54,7 +54,7 @@ export default function OrdersIndex() {
                                                 <td>{post.pickUpDate}</td>
                                                 <td>{post.dropOffDate}</td>
                                                 <td>{post.pickUpTime}</td>
-                                                <td>{post.carId}</td>
+                                                <td>{post.carId.name}</td>
                                                 <td>{post.userId}</td>
                                                 <td className="text-center">
                                                     <Link to={`/orders/edit/${post.id}`} className="btn btn-sm btn-primary rounded-sm shadow border-0 me-2">EDIT</Link>
