@@ -14,5 +14,4 @@ export const nav = [
     { path: "/orders", name: "Orders", isMenu: true, element: <OrdersIndex />, isPrivate: true, isAdmin: true, isUser: true },
     { path: "/orders/create", name: "Orders Create", isMenu: false, element: <OrdersCreate />, isPrivate: true, isAdmin: true, isUser: true },
     { path: "/orders/edit/:id", name: "Orders Edit", isMenu: false, element: <OrdersEdit />, isPrivate: true, isAdmin: true, isUser: true },
-    { path: "/logout", name: "Logout", isMenu: true, element: <Login />, isPrivate: true, isAdmin: true, isUser: true },
 ]

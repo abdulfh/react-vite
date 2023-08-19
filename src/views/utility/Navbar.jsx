@@ -3,6 +3,7 @@ import reactLogo from '../../assets/react.svg'
 import { Link } from "react-router-dom";
 import { AuthData } from '../../context/AuthContext';
 import { nav } from '../../routes/navigation';
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const {user} = AuthData()
@@ -15,6 +16,12 @@ export default function Navbar() {
     )
   }
 
+  const navigate = useNavigate();
+
+  async function logout() {
+    localStorage.removeItem('user')
+    navigate('/')
+  }
   return (
     <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
     <div className="container">
@@ -36,6 +43,8 @@ export default function Navbar() {
               }
             })
           }
+
+          {user ? <li className="nav-item"><button onClick={logout} className="btn btn-danger" aria-current="page">Logout</button></li> : ''}
         </ul>
       </div>
     </div>
