@@ -1,8 +1,23 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple React Aplication as Frontend implement CRUD API With JWT Authentication and multiple roles
 
-Currently, two official plugins are available:
+## Run Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Clone the project
+
+```bash
+  git clone https://github.com/abdulfh/react-vite
+```
+
+Go to the project directory
+
+```bash
+  cd react-vite
+```
+
+Run Docker
+
+```bash
+  docker-compose build && docker-compose up
+```
