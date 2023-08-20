@@ -9,7 +9,6 @@ import UserRoute from "../guard/UserRoute";
 
 export default function RoutesIndex() {
     const { user } = AuthData()
-   
     return (
         <Routes>
             {

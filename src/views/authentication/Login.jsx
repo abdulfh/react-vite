@@ -1,15 +1,10 @@
 import { useState } from "react"
-// import { useNavigate } from "react-router-dom"
 import api from '../../api';
-import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [errors, setErrors] = useState([]);
-
-    //useNavigate
-    const navigate = useNavigate();
 
     async function login(e) {
         e.preventDefault();
@@ -20,7 +15,7 @@ export default function Login() {
         
         await api.post('auth/login', formData).then(response => { 
             localStorage.setItem("user", response.data.access);
-            navigate('/orders')
+            window.location.href = "/orders";
         }).catch(error => {
             setErrors(error.response.data)
         })
