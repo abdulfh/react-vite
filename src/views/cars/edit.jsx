@@ -50,6 +50,10 @@ export default function CarsEdit() {
 
     }, []);
 
+    const addCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const removeNonNumeric = (num) => num.toString().replace(/[^0-9]/g, "");
+    const removeComma = (num) => num.toString().replace(/,/g, "");
+    
     async function updatePost(e) {
         e.preventDefault();
 
@@ -59,9 +63,9 @@ export default function CarsEdit() {
         formData.append('carType', carType);
         formData.append('rating', rating);
         formData.append('fuel', fuel);
-        formData.append('hourRate', hourRate);
-        formData.append('dayRate', dayRate);
-        formData.append('monthRate', monthRate);
+        formData.append('hourRate', removeComma(hourRate));
+        formData.append('dayRate', removeComma(dayRate));
+        formData.append('monthRate', removeComma(monthRate));
 
         await api.put(`cars/${id}/update`, formData, {headers:authHeader()}).then(() => {
             navigate('/cars')
@@ -110,19 +114,19 @@ export default function CarsEdit() {
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Hour Rate</label>
-                                    <input type="number" min={0} className="form-control" value={hourRate} onChange={(e) => setHourRate(e.target.value)} placeholder="Hour Rate" />
+                                    <input type="text" className="form-control" value={addCommas(removeNonNumeric(hourRate))} onChange={(e) => setHourRate(addCommas(removeNonNumeric(e.target.value)))} placeholder="Hour Rate" />
                                     {errors.hourRate && (<div className="alert alert-danger mt-2">{errors.hourRate[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Day Rate</label>
-                                    <input type="number" min={0} className="form-control" value={dayRate} onChange={(e) => setDayRate(e.target.value)} placeholder="Day Rate" />
+                                    <input type="text" className="form-control" value={addCommas(removeNonNumeric(dayRate))} onChange={(e) => setDayRate(addCommas(removeNonNumeric(e.target.value)))} placeholder="Day Rate" />
                                     {errors.dayRate && (<div className="alert alert-danger mt-2">{errors.dayRate[0]}</div>)}
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label fw-bold">Month Rate</label>
-                                    <input type="number" min={0} className="form-control" value={monthRate} onChange={(e) => setMonthRate(e.target.value)} placeholder="Month Rate" />
+                                    <input type="text" className="form-control" value={addCommas(removeNonNumeric(monthRate))} onChange={(e) => setMonthRate(addCommas(removeNonNumeric(e.target.value)))} placeholder="Month Rate" />
                                     {errors.monthRate && (<div className="alert alert-danger mt-2">{errors.monthRate[0]}</div>)}
                                 </div>
 
