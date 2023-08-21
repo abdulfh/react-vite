@@ -54,6 +54,14 @@ export default function OrdersCreate() {
         formData.append('pickUpTime', pickUpTime);
         formData.append('carId', carId);
         
+        if  (pickUpDate > dropOffDate ) {
+            alert('Pick Up Date tidak boleh lebih dari dropoff date');
+            return false; 
+        } else if (dropOffDate < pickUpDate) {
+            alert('Drop Off Date tidak boleh kurang dari pickup date');
+            return false;   
+        }
+
         await api.put(`orders/${id}/update`, formData, {headers: authHeader()}).then(() => {
             navigate('/orders')
         }).catch(error => {
